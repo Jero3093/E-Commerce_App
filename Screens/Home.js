@@ -12,6 +12,16 @@ import { Products } from "../src/Product"; //Products JSON
 import { AntDesign } from "@expo/vector-icons"; //Expo Icons
 
 export default function HomeScreen({ navigation }) {
+  const ProductsFilter = ({ Products }) => {
+    return (
+      <View style={styles.FilterContainer}>
+        <TouchableOpacity style={styles.FilterButton}>
+          <Text style={styles.FilterText}>{Products.category}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }; //Products Filter Container
+
   const ListProducts = ({ Products }) => {
     return (
       <View style={styles.CardContainer}>
@@ -52,12 +62,20 @@ export default function HomeScreen({ navigation }) {
           <AntDesign name="shoppingcart" size={30} color="black" />
         </TouchableOpacity>
       </View>
+      <FlatList
+        data={Products}
+        keyExtractor={Products.category}
+        renderItem={({ item }) => <ProductsFilter Products={item} />}
+        showsHorizontalScrollIndicator={false}
+        horizontal={true}
+      />
       <StatusBar style="auto" />
       <FlatList
         data={Products}
         keyExtractor={Products.id}
         renderItem={({ item }) => <ListProducts Products={item} />}
         showsVerticalScrollIndicator={false}
+        style={{ marginTop: 20 }}
       />
     </SafeAreaView>
   );
@@ -101,5 +119,19 @@ const styles = StyleSheet.create({
   CardPrice: {
     fontSize: 18,
     marginBottom: 10,
+  },
+  FilterContainer: {
+    marginLeft: 10,
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  FilterButton: {
+    backgroundColor: "#12121212",
+    borderRadius: 50,
+  },
+  FilterText: {
+    fontSize: 17,
+    padding: 10,
+    marginBottom: 5,
   },
 }); //StyleSheet
