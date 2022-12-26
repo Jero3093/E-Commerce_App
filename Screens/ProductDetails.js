@@ -53,6 +53,7 @@ export default function ProductDetatil({ route, navigation }) {
           />
         </View>
         <View style={styles.ProductContent}>
+          <Text style={styles.CardCategory}>{product.category}</Text>
           <Text style={styles.ProductName}>{product.name}</Text>
           <View style={styles.ProductPriceContainer}>
             <Text style={styles.ProductPrice}>${price} </Text>
@@ -70,7 +71,7 @@ export default function ProductDetatil({ route, navigation }) {
         </View>
       </View>
     );
-  };//Product to Render
+  }; //Product to Render
 
   return (
     <SafeAreaView style={styles.Container}>
@@ -84,7 +85,7 @@ export default function ProductDetatil({ route, navigation }) {
       </View>
     </SafeAreaView>
   );
-}
+} //Screen Container
 
 const styles = StyleSheet.create({
   Container: {
@@ -97,6 +98,10 @@ const styles = StyleSheet.create({
   ProductContent: {
     marginTop: 15,
     marginHorizontal: 10,
+  },
+  CardCategory: {
+    color: "grey",
+    marginBottom: 5,
   },
   ProductName: {
     fontSize: 18,
@@ -115,6 +120,7 @@ const styles = StyleSheet.create({
   ProductDescription: {
     fontSize: 15,
     marginTop: 30,
+    lineHeight: 23,
   },
   BuyButtonContainer: {
     alignItems: "center",
