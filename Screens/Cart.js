@@ -6,11 +6,16 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Products } from "../src/Product"; //Products JSON
-import { EvilIcons } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";//Expo Icons
 
 export default function CartScreen({ navigation }) {
+  const CartAlert = () => {
+    Alert.alert("Check", "Payment was Successful");
+  };
+
   const CartProduct = ({ Products }) => {
     return (
       <View style={styles.ProductsContainer}>
@@ -24,7 +29,7 @@ export default function CartScreen({ navigation }) {
           }}
         />
         <View style={styles.ProductContent}>
-          <Text numberOfLines={1} style={{ fontSize: 16, marginBottom: 5 }}>
+          <Text numberOfLines={2} style={{ fontSize: 16, marginBottom: 5 }}>
             {Products?.name}
           </Text>
           <Text style={{ fontSize: 15, marginBottom: 5 }}>
@@ -45,8 +50,8 @@ export default function CartScreen({ navigation }) {
         renderItem={({ item }) => <CartProduct Products={item} />}
         showsVerticalScrollIndicator={false}
       />
-      <View style={styles.BuyBottonContainer} >
-        <TouchableOpacity style={styles.BuyBotton}>
+      <View style={styles.BuyBottonContainer}>
+        <TouchableOpacity style={styles.BuyBotton} onPress={CartAlert}>
           <Text style={styles.BottonText}>Finish Payment</Text>
         </TouchableOpacity>
       </View>
@@ -59,6 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#12121212",
   },
   ProductsContainer: {
+    alignItems: "center",
     flexDirection: "row",
     backgroundColor: "#fff",
     padding: 15,
