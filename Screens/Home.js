@@ -31,6 +31,7 @@ export default function HomeScreen({ navigation }) {
               }}
             />
           </View>
+          <Text style={styles.CardCategory}>{Products.category} </Text>
           <Text numberOfLines={2} style={styles.CardName}>
             {Products?.name}
           </Text>
@@ -88,6 +89,10 @@ const styles = StyleSheet.create({
   },
   ImageContainer: {
     alignItems: "center",
+  },
+  CardCategory: {
+    color: "grey",
+    marginBottom: 5,
   },
   CardName: {
     fontSize: 20,
