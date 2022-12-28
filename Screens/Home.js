@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation }) {
         >
           <View style={styles.ImageContainer}>
             <Image
-              source={Products}
+              source={Products.Image}
               style={{
                 width: 300,
                 height: 220,
