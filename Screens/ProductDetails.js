@@ -48,7 +48,7 @@ export default function ProductDetatil({ route, navigation }) {
       <View>
         <View style={styles.ImageContiner}>
           <Image
-            source={product}
+            source={product.Image}
             style={{ width: 300, height: 300, resizeMode: "contain" }}
           />
         </View>

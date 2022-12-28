@@ -7,7 +7,6 @@ export const Products = [
       "Esta mochila de lona grande tiene un tamaño aproximado de 16 x 18 x 9 pulgadas de profundidad. Lo suficientemente grande como para adaptarse a los elementos esenciales del día a día, como laptop, cuaderno, libro, iPad, almuerzo, cámara, equipo de afeitado, prendas, ropa u otros artículos y accesorios personales esenciales que necesite. MATERIALES DE ALTA CALIDAD: nuestra bolsa de campo Gearonic TM está hecha con tela de lona duradera de alta densidad de alta calidad y cuero PU, esta resistente bolsa cuenta con un diseño clásico pero elegante con solapa de cierre de botón, detalles de hardware de latón vintage, correa para el hombro ajustable y cómoda y múltiples bolsillos para mantenga sus artículos esenciales diarios organizados.",
     price: "1032",
     Image: require("../src/Products/product1.jpg"),
-    ImageStack: require("../src/Products/product1.jpg"),
   },
   {
     id: 2,
