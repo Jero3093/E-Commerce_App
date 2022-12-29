@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./Screens/Home.js";
 import CartScreen from "./Screens/Cart.js";
 import ProductDetails from "./Screens/ProductDetails.js";
+import FilterProducts from "./Screens/FilterProducts.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,15 @@ function MyStack() {
         <Stack.Screen
           name="Product Details"
           component={ProductDetails}
+          options={{
+            headerTintColor: "#121212",
+            headerShadowVisible: false,
+            headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="Filter"
+          component={FilterProducts}
           options={{
             headerTintColor: "#121212",
             headerShadowVisible: false,
