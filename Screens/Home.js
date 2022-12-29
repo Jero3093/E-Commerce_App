@@ -15,7 +15,15 @@ export default function HomeScreen({ navigation }) {
   const ProductsFilter = ({ Products }) => {
     return (
       <View style={styles.FilterContainer}>
-        <TouchableOpacity style={styles.FilterButton}>
+        <TouchableOpacity
+          style={styles.FilterButton}
+          onPress={() =>
+            navigation.navigate("Filter", {
+              ProductCategory: Products.category,
+              ProductId: Products.id,
+            })
+          }
+        >
           <Text style={styles.FilterText}>{Products.category}</Text>
         </TouchableOpacity>
       </View>
@@ -90,6 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingTop: 12,
   },
   TopText: {
     fontSize: 22,
@@ -122,7 +131,6 @@ const styles = StyleSheet.create({
   },
   FilterContainer: {
     marginLeft: 10,
-    justifyContent: "center",
     marginTop: 10,
   },
   FilterButton: {
