@@ -108,12 +108,3 @@ export const Products = [
     Image: require("../src/Products/product12.jpg"),
   },
 ];
-
-export const Categories = [
-  {
-    category: "Backpacks"
-  },
-  {
-    category: "Men's Cloth",
-  },
-]

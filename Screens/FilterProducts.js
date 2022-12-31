@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import { Products } from "../src/Product";
 
 export default function FilterProducts({ route, navigation }) {
-  const { ProductCategory } = route.params; //Serach the Catefory of the product from the JSON
+  const { ProductCategory } = route.params; //Serach the Category of the product from the JSON
 
   const { ProductId } = route.params; //Serach the ID of the product from the
 
@@ -69,7 +69,7 @@ export default function FilterProducts({ route, navigation }) {
     <View style={styles.Container}>
       <FlatList
         data={Products}
-        keyExtractor={Products.id}
+        keyExtractor={Products.category}
         renderItem={({ item }) => <ProductFilterCard Products={item} />}
       />
     </View>

@@ -61,6 +61,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
       <View style={styles.TopBar}>
         <Text style={styles.TopText}>New Collection</Text>
         <TouchableOpacity
@@ -77,7 +78,6 @@ export default function HomeScreen({ navigation }) {
         showsHorizontalScrollIndicator={false}
         horizontal={true}
       />
-      <StatusBar style="auto" />
       <FlatList
         data={Products}
         keyExtractor={Products.id}
@@ -92,7 +92,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#12121212",
+    backgroundColor: "#29c9e4",
   },
   TopBar: {
     flexDirection: "row",
@@ -134,12 +134,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   FilterButton: {
-    backgroundColor: "#12121212",
+    backgroundColor: "#fff",
     borderRadius: 50,
+    justifyContent: "center",
   },
   FilterText: {
     fontSize: 17,
-    padding: 10,
-    marginBottom: 5,
+    padding: 10, 
+    paddingBottom: 15,
   },
 }); //StyleSheet
