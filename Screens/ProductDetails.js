@@ -97,7 +97,11 @@ const styles = StyleSheet.create({
   },
   ProductContent: {
     marginTop: 15,
-    marginHorizontal: 10,
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    backgroundColor: "#12121212",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   CardCategory: {
     color: "grey",

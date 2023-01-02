@@ -92,7 +92,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#29c9e4",
+    backgroundColor: "#12121212",
   },
   TopBar: {
     flexDirection: "row",
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   FilterText: {
     fontSize: 17,
-    padding: 10, 
+    padding: 10,
     paddingBottom: 15,
   },
 }); //StyleSheet

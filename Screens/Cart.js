@@ -20,7 +20,7 @@ export default function CartScreen({ navigation }) {
     return (
       <View style={styles.ProductsContainer}>
         <Image
-          source={Products}
+          source={Products.Image}
           style={{
             width: 60,
             height: 60,
