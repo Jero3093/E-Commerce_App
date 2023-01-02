@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Alter",
-    "slug": "E-Commerce_App",
+    "slug": "Alter",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/Logo.png",
@@ -21,6 +21,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.Alter",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/Logo.png",
         "backgroundColor": "#FFFFFF"
@@ -28,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "aed3511e-7117-4d1e-b111-9ae7ac6a4a4f"
+      }
     }
   }
 }
