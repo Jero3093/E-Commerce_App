@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Products } from "../src/Product"; //Products JSON
 import { AntDesign } from "@expo/vector-icons"; //Expo Icons
+import { FlashList } from "@shopify/flash-list";
 
 export default function HomeScreen({ navigation }) {
   const ProductsFilter = ({ Products }) => {
@@ -63,7 +64,7 @@ export default function HomeScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.TopBar}>
-        <Text style={styles.TopText}>New Collection</Text>
+        <Text style={styles.TopText}>Alter</Text>
         <TouchableOpacity
           onPress={() => navigation.navigate("Cart")}
           style={styles.CartButton}
@@ -71,19 +72,22 @@ export default function HomeScreen({ navigation }) {
           <AntDesign name="shoppingcart" size={30} color="black" />
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={Products}
-        keyExtractor={Products.category}
-        renderItem={({ item }) => <ProductsFilter Products={item} />}
-        showsHorizontalScrollIndicator={false}
-        horizontal={true}
-      />
-      <FlatList
+      <View style={{ marginBottom: 20 }}>
+        <FlashList
+          data={Products}
+          keyExtractor={Products.category}
+          renderItem={({ item }) => <ProductsFilter Products={item} />}
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          estimatedItemSize={100}
+        />
+      </View>
+      <FlashList
         data={Products}
         keyExtractor={Products.id}
         renderItem={({ item }) => <ListProducts Products={item} />}
         showsVerticalScrollIndicator={false}
-        style={{ marginTop: 20 }}
+        estimatedItemSize={100}
       />
     </SafeAreaView>
   );
@@ -103,6 +107,7 @@ const styles = StyleSheet.create({
   TopText: {
     fontSize: 22,
     padding: 15,
+    letterSpacing: 1,
   },
   CartButton: {
     marginRight: 20,
@@ -141,6 +146,5 @@ const styles = StyleSheet.create({
   FilterText: {
     fontSize: 17,
     padding: 10,
-    paddingBottom: 15,
   },
 }); //StyleSheet
