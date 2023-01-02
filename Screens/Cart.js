@@ -61,6 +61,7 @@ export default function CartScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   CartContainer: {
+    flex: 1,
     backgroundColor: "#12121212",
   },
   ProductsContainer: {
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   BuyBottonContainer: {
+    justifyContent: "center",
     alignItems: "center",
   },
   BuyBotton: {
@@ -82,9 +84,9 @@ const styles = StyleSheet.create({
     width: "70%",
     backgroundColor: "#121212",
     padding: 10,
-    position: "relative",
-    bottom: 35,
     borderRadius: 50,
+    position: "absolute",
+    bottom: 20,
   },
   BottonText: {
     color: "#fff",

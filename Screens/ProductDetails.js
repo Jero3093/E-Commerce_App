@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
   },
   BuyButtonContainer: {
     alignItems: "center",
+    paddingBottom: 10,
   },
   BuyButton: {
     backgroundColor: "black",
