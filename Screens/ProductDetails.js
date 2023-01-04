@@ -11,8 +11,36 @@ import {
 } from "react-native";
 import { Products } from "../src/Product"; //Products JSON
 import { AntDesign } from "@expo/vector-icons"; //Expo Icons
+import AsyncStorage from "@react-native-async-storage/async-storage"; //Async Storage Component
 
 export default function ProductDetatil({ route, navigation }) {
+  const addToCart = async (id) => {
+    let ItemArray = await AsyncStorage.getItem("cartItem");
+    ItemArray = JSON.parse(ItemArray);
+    if (ItemArray) {
+      let array = ItemArray;
+      array.push(id);
+
+      try {
+        await AsyncStorage.setItem("cartItem", JSON.stringify(array));
+        Alert.alert("Success", "Product added to Cart");
+        navigation.navigate("Home");
+      } catch (error) {
+        return error;
+      }
+    } else {
+      let array = [];
+      array.push(id);
+      try {
+        await AsyncStorage.setItem("cartItem", JSON.stringify(array));
+        Alert.alert("Success", "Product added to Cart");
+        navigation.navigate("Home");
+      } catch (error) {
+        return error;
+      }
+    }
+  }; // Data Storage to display in Cart
+
   const { ProductId } = route.params; //Serach the ID of the product from the JSON
 
   const [product, setproduct] = useState({}); //Product State
@@ -20,10 +48,10 @@ export default function ProductDetatil({ route, navigation }) {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       getDataFromJson();
-    }); //Get the data from the JSON once
+    });
 
     return unsubscribe;
-  }, [navigation]);
+  }, [navigation]); //Get the data from the JSON once
 
   const getDataFromJson = async () => {
     for (let index = 0; index < Products.length; index++) {
@@ -35,11 +63,6 @@ export default function ProductDetatil({ route, navigation }) {
   }; //Search for an specific ID then update the product states
 
   const [count, setcount] = useState(1); //Product Counter
-
-  const BuyAlert = ({ count }) => {
-    Alert.alert("Succes", "Go to Cart and Check");
-    setcount((count = 1));
-  }; //Buy Alert and Count Reset
 
   const RenderProduct = () => {
     const [price, setprice] = useState(product?.price * count); //Product Price
@@ -79,7 +102,12 @@ export default function ProductDetatil({ route, navigation }) {
         <RenderProduct />
       </ScrollView>
       <View style={styles.BuyButtonContainer}>
-        <TouchableOpacity style={styles.BuyButton} onPress={BuyAlert}>
+        <TouchableOpacity
+          style={styles.BuyButton}
+          onPress={() => {
+            addToCart(product.id);
+          }}
+        >
           <Text style={styles.BuyButtonText}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
