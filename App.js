@@ -21,9 +21,7 @@ function MyStack() {
           name="Cart"
           component={CartScreen}
           options={{
-            headerTintColor: "#121212",
-            headerShadowVisible: false,
-            headerBackTitleVisible: false,
+            headerShown: false,
           }}
         />
         <Stack.Screen

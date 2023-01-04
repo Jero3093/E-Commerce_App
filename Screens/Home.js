@@ -84,7 +84,6 @@ export default function HomeScreen({ navigation }) {
       </View>
       <FlashList
         data={Products}
-        keyExtractor={Products.id}
         renderItem={({ item }) => <ListProducts Products={item} />}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={100}
@@ -118,6 +117,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: 15,
     marginBottom: 30,
+    marginHorizontal: 10,
   },
   ImageContainer: {
     alignItems: "center",
