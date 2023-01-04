@@ -6,12 +6,13 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Products } from "../src/Product"; //Products JSON
 import { EvilIcons } from "@expo/vector-icons"; //Expo Icons
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FlashList } from "@shopify/flash-list"; // Flashlist Component
+import AsyncStorage from "@react-native-async-storage/async-storage"; //Async Storage Component
+import { Ionicons } from "@expo/vector-icons"; //Expo Icons
 
 export default function CartScreen({ navigation }) {
   const [product, setproduct] = useState(); //Product State
@@ -41,7 +42,7 @@ export default function CartScreen({ navigation }) {
     } else {
       setproduct(false);
     }
-  }; // Ger the data stoterd whith Async Storage
+  }; // Get the data stoterd whith Async Storage
 
   const CartAlert = () => {
     Alert.alert("Check", "Payment was Successful");
@@ -75,15 +76,16 @@ export default function CartScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.Container}>
       <View style={styles.TopBar}>
-
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Ionicons name="md-chevron-back-outline" size={33} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.TopBarTitle}>Cart</Text>
+        <Text style={styles.TopBarTotal}>$1445</Text>
       </View>
-      <Text>
-        {product
-          ? product.map((data, index) => {
-              return <Text>{data.name} </Text>;
-            })
-          : null}
-      </Text>
+      <ScrollView>
+        <View>{product ? product.map(CartProduct) : null}</View>
+        {/* Function to Render the items from Async Storage */}
+      </ScrollView>
       <View style={styles.BuyBottonContainer}>
         <TouchableOpacity style={styles.BuyBotton} onPress={CartAlert}>
           <Text style={styles.BottonText}>Finish Payment</Text>
@@ -97,6 +99,20 @@ const styles = StyleSheet.create({
   Container: {
     flex: 1,
     backgroundColor: "#12121212",
+  },
+  TopBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  TopBarTitle: {
+    fontSize: 19,
+    fontWeight: "600",
+  },
+  TopBarTotal: {
+    fontSize: 18,
   },
   ProductsContainer: {
     alignItems: "center",
