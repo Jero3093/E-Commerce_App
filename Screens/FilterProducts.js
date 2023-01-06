@@ -7,6 +7,7 @@ import {
   Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
+import { FlashList } from "@shopify/flash-list";
 import { Products } from "../src/Product";
 
 export default function FilterProducts({ route, navigation }) {
@@ -67,10 +68,11 @@ export default function FilterProducts({ route, navigation }) {
 
   return (
     <View style={styles.Container}>
-      <FlatList
+      <FlashList
         data={Products}
         keyExtractor={Products.category}
         renderItem={({ item }) => <ProductFilterCard Products={item} />}
+        estimatedItemSize={50}
       />
     </View>
   );
