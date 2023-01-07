@@ -17,7 +17,7 @@ import { Ionicons } from "@expo/vector-icons"; //Expo Icons
 export default function CartScreen({ navigation }) {
   const [product, setproduct] = useState(); //Product State
 
-  const [Total, setTotal] = useState(null); // Total Price State
+  const [total, settotal] = useState(null); // Total Price State
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -49,11 +49,11 @@ export default function CartScreen({ navigation }) {
   const getTotal = (ProductData) => {
     let total = 0;
     for (let index = 0; index < ProductData.length; index++) {
-      let ProductPrice = ProductData[index].ProductPrice;
-      total = total + ProductPrice;
+      let price = ProductData[index].price;
+      total = total + price;
     }
 
-    setTotal(total);
+    settotal(total);
   }; //Get the total price to pay
 
   const removeProduct = async (id) => {
@@ -72,18 +72,14 @@ export default function CartScreen({ navigation }) {
     }
   }; //Remove the Products from the Cart
 
-  const CartAlert = () => {
-    Alert.alert("Check", "Payment was Successful");
-  }; //Pay Button Alert
-
   const CartProduct = (data, index) => {
     return (
       <View style={styles.ProductsContainer} key={data.id}>
         <Image
           source={data.Image}
           style={{
-            width: 60,
-            height: 60,
+            width: 70,
+            height: 70,
             resizeMode: "contain",
             marginRight: 10,
           }}
@@ -110,21 +106,24 @@ export default function CartScreen({ navigation }) {
         <Text style={styles.TopBarTitle}>Cart</Text>
         <View style={{ flexDirection: "column", alignItems: "center" }}>
           <Text style={styles.TopBarTotal}>Total:</Text>
-          <Text style={styles.TopBarTotal}>${Total}</Text>
+          <Text style={styles.TopBarTotal}>${total}</Text>
         </View>
       </View>
       <ScrollView>
-        <View>{product ? product.map(CartProduct) : null}</View>
         {/* Function to Render the items from Async Storage */}
+        <View>{product ? product.map(CartProduct) : null}</View>
       </ScrollView>
       <View style={styles.BuyBottonContainer}>
-        <TouchableOpacity style={styles.BuyBotton} onPress={CartAlert}>
+        <TouchableOpacity
+          style={styles.BuyBotton}
+          onPress={() => navigation.navigate("Cart Modal")}
+        >
           <Text style={styles.BottonText}>Finish Payment</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
-}//Screen Container
+} //Screen Container
 
 const styles = StyleSheet.create({
   Container: {
