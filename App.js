@@ -5,6 +5,7 @@ import Home from "./Screens/Home.js";
 import CartScreen from "./Screens/Cart.js";
 import ProductDetails from "./Screens/ProductDetails.js";
 import FilterProducts from "./Screens/FilterProducts.js";
+import CartModal from "./src/Components/CartModal.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,11 @@ function MyStack() {
           options={{
             headerShown: false,
           }}
+        />
+        <Stack.Screen
+          name="Cart Modal"
+          component={CartModal}
+          options={{ animation: "slide_from_bottom", headerShown: false,  }}
         />
         <Stack.Screen
           name="Product Details"
