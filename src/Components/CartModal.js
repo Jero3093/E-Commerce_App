@@ -11,12 +11,17 @@ import {
 } from "react-native";
 
 export default function CartModal({ navigation }) {
-  const [Data, setData] = useState(null);
+  const [FirstName, setFirstName] = useState(null);
+  const [LastName, setLastName] = useState(null);
+  const [Email, setEmail] = useState(null);
+  const [Location, setLocation] = useState(null);
+  const [Order, setOrder] = useState(null);
 
   const ButtonAlert = () => {
-    if (Data === null) {
+    if (FirstName, LastName, Email, Location, Order === null) {
       Alert.alert("Error", "There's no Products in Cart");
-    } else {
+    }
+    else {
       Alert.alert("Success", "Products will be Delybered soon");
       navigation.replace("Home");
     }
@@ -34,7 +39,7 @@ export default function CartModal({ navigation }) {
             <TextInput
               placeholder="Example: Jaime"
               style={styles.Input}
-              onChangeText={setData}
+              onChangeText={setFirstName}
             />
           </View>
           <View style={styles.InputContainer}>
@@ -42,7 +47,7 @@ export default function CartModal({ navigation }) {
             <TextInput
               placeholder="Example: Jaime"
               style={styles.Input}
-              onChangeText={setData}
+              onChangeText={setLastName}
             />
           </View>
           <View style={styles.InputContainer}>
@@ -50,15 +55,7 @@ export default function CartModal({ navigation }) {
             <TextInput
               placeholder="Example: Jaime"
               style={styles.Input}
-              onChangeText={setData}
-            />
-          </View>
-          <View style={styles.InputContainer}>
-            <Text style={{ fontSize: 18 }}>Phone Number:</Text>
-            <TextInput
-              placeholder="Example: Jaime"
-              style={styles.Input}
-              onChangeText={setData}
+              onChangeText={setEmail}
             />
           </View>
           <View style={styles.InputContainer}>
@@ -66,7 +63,7 @@ export default function CartModal({ navigation }) {
             <TextInput
               placeholder="Example: Jaime"
               style={styles.Input}
-              onChangeText={setData}
+              onChangeText={setLocation}
             />
           </View>
           <View style={styles.InputContainer}>
@@ -74,16 +71,16 @@ export default function CartModal({ navigation }) {
             <TextInput
               placeholder="Example: Jaime"
               style={styles.Input}
-              onChangeText={setData}
+              onChangeText={setOrder}
             />
           </View>
         </View>
       </KeyboardAvoidingView>
-        <TouchableOpacity style={styles.FormButton} onPress={ButtonAlert}>
-          <Text style={{ fontSize: 17, color: "#fff", alignSelf: "center" }}>
-            Finish
-          </Text>
-        </TouchableOpacity>
+      <TouchableOpacity style={styles.FormButton} onPress={ButtonAlert}>
+        <Text style={{ fontSize: 17, color: "#fff", alignSelf: "center" }}>
+          Finish
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
