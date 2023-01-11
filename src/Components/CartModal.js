@@ -48,7 +48,8 @@ export default function CartModal({ navigation }) {
               placeholder="Example: Jaime@gmail.com"
               style={styles.Input}
               onChangeText={setEmail}
-            />
+              keyboardType="email-address"
+/>
           </View>
           <View style={styles.InputContainer}>
             <Text style={{ fontSize: 18 }}>Location:</Text>
@@ -64,6 +65,7 @@ export default function CartModal({ navigation }) {
               placeholder="Example: 2996.6294.9596.9892"
               style={styles.Input}
               onChangeText={setCardNumber}
+              keyboardType="number-pad"
             />
           </View>
           <View style={styles.InputContainer}>
@@ -72,6 +74,7 @@ export default function CartModal({ navigation }) {
               placeholder="Example: 123"
               style={styles.Input}
               onChangeText={setSecurityCode}
+              keyboardType="number-pad"
             />
           </View>
           <View style={styles.InputContainer}>
