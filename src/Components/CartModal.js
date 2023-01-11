@@ -11,17 +11,17 @@ import {
 } from "react-native";
 
 export default function CartModal({ navigation }) {
-  const [FirstName, setFirstName] = useState(null);
-  const [LastName, setLastName] = useState(null);
+  const [FullName, setFullName] = useState(null);
   const [Email, setEmail] = useState(null);
   const [Location, setLocation] = useState(null);
   const [Order, setOrder] = useState(null);
+  const [CardNumber, setCardNumber] = useState(null);
+  const [SecurityCode, setSecurityCode] = useState(null);
 
   const ButtonAlert = () => {
-    if (FirstName, LastName, Email, Location, Order === null) {
+    if ((FullName, Email, Location, Order, CardNumber, SecurityCode === null)) {
       Alert.alert("Error", "There's no Products in Cart");
-    }
-    else {
+    } else {
       Alert.alert("Success", "Products will be Delybered soon");
       navigation.replace("Home");
     }
@@ -35,25 +35,17 @@ export default function CartModal({ navigation }) {
         </Text>
         <View style={styles.FormContainer}>
           <View style={styles.InputContainer}>
-            <Text style={{ fontSize: 18 }}>First Name:</Text>
+            <Text style={{ fontSize: 18 }}>Full Name:</Text>
             <TextInput
-              placeholder="Example: Jaime"
+              placeholder="Example: Jaime Parker"
               style={styles.Input}
-              onChangeText={setFirstName}
-            />
-          </View>
-          <View style={styles.InputContainer}>
-            <Text style={{ fontSize: 18 }}>Last Name:</Text>
-            <TextInput
-              placeholder="Example: Jaime"
-              style={styles.Input}
-              onChangeText={setLastName}
+              onChangeText={setFullName}
             />
           </View>
           <View style={styles.InputContainer}>
             <Text style={{ fontSize: 18 }}>Email:</Text>
             <TextInput
-              placeholder="Example: Jaime"
+              placeholder="Example: Jaime@gmail.com"
               style={styles.Input}
               onChangeText={setEmail}
             />
@@ -61,15 +53,31 @@ export default function CartModal({ navigation }) {
           <View style={styles.InputContainer}>
             <Text style={{ fontSize: 18 }}>Location:</Text>
             <TextInput
-              placeholder="Example: Jaime"
+              placeholder="Example: California, USA"
               style={styles.Input}
               onChangeText={setLocation}
             />
           </View>
           <View style={styles.InputContainer}>
+            <Text style={{ fontSize: 18 }}>Card Number:</Text>
+            <TextInput
+              placeholder="Example: 2996.6294.9596.9892"
+              style={styles.Input}
+              onChangeText={setCardNumber}
+            />
+          </View>
+          <View style={styles.InputContainer}>
+            <Text style={{ fontSize: 18 }}>Security Code:</Text>
+            <TextInput
+              placeholder="Example: 123"
+              style={styles.Input}
+              onChangeText={setSecurityCode}
+            />
+          </View>
+          <View style={styles.InputContainer}>
             <Text style={{ fontSize: 18 }}>Order Delivery:</Text>
             <TextInput
-              placeholder="Example: Jaime"
+              placeholder="Example: 215, Street Avenue"
               style={styles.Input}
               onChangeText={setOrder}
             />
@@ -94,7 +102,6 @@ const styles = StyleSheet.create({
   FormContainer: {
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
   },
   InputContainer: {
     flexDirection: "row",
@@ -108,6 +115,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginLeft: 10,
     borderRadius: 30,
+    width: "60%",
   },
   FormButton: {
     alignSelf: "center",
