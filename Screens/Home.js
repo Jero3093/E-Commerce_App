@@ -101,6 +101,8 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 25,
     marginHorizontal: 7,
+    borderWidth: 1,
+    borderColor: "#D0D0D0"
   },
   ImageContainer: {
     alignItems: "center",
