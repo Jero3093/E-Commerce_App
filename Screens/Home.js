@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import {
-  FlatList,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -8,29 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Products } from "../src/Product"; //Products JSON
+import { Products, Categories } from "../src/Product"; //Products JSON
 import { AntDesign } from "@expo/vector-icons"; //Expo Icons
-import { FlashList } from "@shopify/flash-list";
+import { FlashList } from "@shopify/flash-list"; //Flash List Component
+import { CategoriesCard } from "../src/Components/Home/CategoriesCard"; //Categories Card Component
 
 export default function HomeScreen({ navigation }) {
-  const ProductsFilter = ({ Products }) => {
-    return (
-      <View style={styles.FilterContainer}>
-        <TouchableOpacity
-          style={styles.FilterButton}
-          onPress={() =>
-            navigation.navigate("Filter", {
-              ProductCategory: Products.category,
-              ProductId: Products.id,
-            })
-          }
-        >
-          <Text style={styles.FilterText}>{Products.category}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }; //Products Filter Container
-
   const ListProducts = ({ Products }) => {
     return (
       <View style={styles.CardContainer}>
@@ -43,7 +25,7 @@ export default function HomeScreen({ navigation }) {
             <Image
               source={Products.Image}
               style={{
-                width: 300,
+                width: 150,
                 height: 220,
                 resizeMode: "contain",
                 marginBottom: 30,
@@ -69,14 +51,13 @@ export default function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("Cart")}
           style={styles.CartButton}
         >
-          <AntDesign name="shoppingcart" size={30} color="black" />
+          <AntDesign name="shoppingcart" size={32} color="black" />
         </TouchableOpacity>
       </View>
       <View style={{ marginBottom: 20 }}>
         <FlashList
-          data={Products}
-          keyExtractor={Products.category}
-          renderItem={({ item }) => <ProductsFilter Products={item} />}
+          data={Categories}
+          renderItem={({ item }) => <CategoriesCard Data={item} />}
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           estimatedItemSize={100}
@@ -87,6 +68,7 @@ export default function HomeScreen({ navigation }) {
         renderItem={({ item }) => <ListProducts Products={item} />}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={100}
+        numColumns={2}
       />
     </SafeAreaView>
   );
@@ -104,7 +86,8 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
   TopText: {
-    fontSize: 22,
+    fontSize: 30,
+    fontWeight: "600",
     padding: 15,
     letterSpacing: 1,
   },
@@ -116,8 +99,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     flexDirection: "column",
     padding: 15,
-    marginBottom: 30,
-    marginHorizontal: 10,
+    marginBottom: 25,
+    marginHorizontal: 7,
   },
   ImageContainer: {
     alignItems: "center",
@@ -133,18 +116,5 @@ const styles = StyleSheet.create({
   CardPrice: {
     fontSize: 18,
     marginBottom: 10,
-  },
-  FilterContainer: {
-    marginLeft: 10,
-    marginTop: 10,
-  },
-  FilterButton: {
-    backgroundColor: "#fff",
-    borderRadius: 50,
-    justifyContent: "center",
-  },
-  FilterText: {
-    fontSize: 17,
-    padding: 10,
   },
 }); //StyleSheet
