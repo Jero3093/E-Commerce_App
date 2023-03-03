@@ -8,12 +8,16 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  useWindowDimensions,
 } from "react-native";
 import { Products } from "../src/Product"; //Products JSON
 import { AntDesign } from "@expo/vector-icons"; //Expo Icons
 import AsyncStorage from "@react-native-async-storage/async-storage"; //Async Storage Component
+import { FlashList } from "@shopify/flash-list";
 
 export default function ProductDetatil({ route, navigation }) {
+  const { width } = useWindowDimensions(); //Width Dimension of the Device
+
   const addToCart = async (id) => {
     let ItemArray = await AsyncStorage.getItem("cartItem");
     ItemArray = JSON.parse(ItemArray);
@@ -62,19 +66,28 @@ export default function ProductDetatil({ route, navigation }) {
     }
   }; //Search for an specific ID then update the product states
 
-  const [count, setcount] = useState(1); //Product Counter
+  const [count, setcount] = useState(1); //Product Counter State
 
   const RenderProduct = () => {
-    const [price, setprice] = useState(product?.price * count); //Product Price
+    const [price, setprice] = useState(product.price * count); //Product Price State
 
     return (
       <View>
-        <View style={styles.ImageContiner}>
-          <Image
-            source={product.Image}
-            style={{ width: 300, height: 300, resizeMode: "contain" }}
-          />
-        </View>
+        {/* Carrousel of Images*/}
+        <FlashList
+          data={product.ImageCarrousel}
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          renderItem={({ item }) => (
+            <Image
+              source={{ uri: item }}
+              style={{ width: width, height: 300, resizeMode: "contain" }}
+            />
+          )}
+          pagingEnabled={true}
+          estimatedItemSize={50}
+        />
+        {/* Product Content */}
         <View style={styles.ProductContent}>
           <Text style={styles.CardCategory}>{product.category}</Text>
           <Text style={styles.ProductName}>{product.name}</Text>
@@ -122,6 +135,7 @@ const styles = StyleSheet.create({
   },
   ImageContiner: {
     alignItems: "center",
+    width: "100%",
   },
   ProductContent: {
     marginTop: 15,
