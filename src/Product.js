@@ -108,3 +108,34 @@ export const Products = [
     Image: require("../src/Products/product12.jpg"),
   },
 ];
+
+export const Categories = [
+  {
+    id: 1,
+    name: "Backpacks",
+  },
+  {
+    id: 2,
+    name: "Men's Cloth",
+  },
+  {
+    id: 3,
+    name: "Womens Cloth",
+  },
+  {
+    id: 4,
+    name: "Technology",
+  },
+  {
+    id: 5,
+    name: "Things",
+  },
+  {
+    id: 6,
+    name: "Videogames",
+  },
+  {
+    id: 7,
+    name: "Tools",
+  },
+];
