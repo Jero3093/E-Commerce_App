@@ -1,11 +1,12 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./Screens/Home.js";
-import CartScreen from "./Screens/Cart.js";
-import ProductDetails from "./Screens/ProductDetails.js";
-import FilterProducts from "./Screens/FilterProducts.js";
-import CartModal from "./src/Components/CartModal.js";
+import Home from "./Screens/Home.js"; //Home Screens
+import CartScreen from "./Screens/Cart.js"; // Cart Screen
+import ProductDetails from "./Screens/ProductDetails.js"; // Product Details Screen
+import FilterProducts from "./Screens/FilterProducts.js"; // Filter Products Screen
+import CartModal from "./Screens/CartModal.js"; // Cart Modal Screen
+import SearchScreen from "./Screens/SearchScreen.js"; // Search Screen
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +29,11 @@ function MyStack() {
         <Stack.Screen
           name="Cart Modal"
           component={CartModal}
-          options={{ animation: "slide_from_bottom", headerShown: false,  }}
+          options={{
+            animation: "slide_from_bottom",
+            headerShown: false,
+            presentation: "formSheet",
+          }}
         />
         <Stack.Screen
           name="Product Details"
@@ -46,6 +51,13 @@ function MyStack() {
             headerTintColor: "#121212",
             headerShadowVisible: false,
             headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Navigator>
