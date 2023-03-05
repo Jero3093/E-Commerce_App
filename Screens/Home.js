@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { Products, Categories } from "../src/Product"; //Products JSON
-import { AntDesign } from "@expo/vector-icons"; //Expo Icons
+import { AntDesign, Feather } from "@expo/vector-icons"; //Expo Icons
 import { FlashList } from "@shopify/flash-list"; //Flash List Component
 import { CategoriesCard } from "../src/Components/Home/CategoriesCard"; //Categories Card Component
 
@@ -47,12 +47,20 @@ export default function HomeScreen({ navigation }) {
       <StatusBar style="auto" />
       <View style={styles.TopBar}>
         <Text style={styles.TopText}>Alter</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Cart")}
-          style={styles.CartButton}
-        >
-          <AntDesign name="shoppingcart" size={32} color="black" />
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity
+            style={styles.CartButton}
+            onPress={() => navigation.navigate("Search")}
+          >
+            <Feather name="search" size={32} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Cart")}
+            style={styles.CartButton}
+          >
+            <AntDesign name="shoppingcart" size={32} color="black" />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={{ marginBottom: 20 }}>
         <FlashList
@@ -77,16 +85,17 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#12121212",
+    backgroundColor: "#CDCDCD",
   },
   TopBar: {
+    backgroundColor: "",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingTop: 12,
   },
   TopText: {
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: "600",
     padding: 15,
     letterSpacing: 1,
@@ -102,7 +111,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     marginHorizontal: 7,
     borderWidth: 1,
-    borderColor: "#D0D0D0"
+    borderColor: "#A0A0A0",
   },
   ImageContainer: {
     alignItems: "center",

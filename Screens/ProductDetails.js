@@ -81,7 +81,12 @@ export default function ProductDetatil({ route, navigation }) {
           renderItem={({ item }) => (
             <Image
               source={{ uri: item }}
-              style={{ width: width, height: 300, resizeMode: "contain" }}
+              style={{
+                width: width,
+                height: 300,
+                resizeMode: "contain",
+                backgroundColor: "#fff",
+              }}
             />
           )}
           pagingEnabled={true}
@@ -110,11 +115,11 @@ export default function ProductDetatil({ route, navigation }) {
   }; //Product to Render
 
   return (
-    <SafeAreaView style={styles.Container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <View style={styles.Container}>
+      <ScrollView>
         <RenderProduct />
       </ScrollView>
-      <View style={styles.BuyButtonContainer}>
+      <View style={{ backgroundColor: "#12121212", paddingBottom: 30 }}>
         <TouchableOpacity
           style={styles.BuyButton}
           onPress={() => {
@@ -124,7 +129,7 @@ export default function ProductDetatil({ route, navigation }) {
           <Text style={styles.BuyButtonText}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 } //Screen Container
 
@@ -144,6 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#12121212",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    height: "100%",
   },
   CardCategory: {
     color: "grey",
@@ -168,18 +174,14 @@ const styles = StyleSheet.create({
     marginTop: 30,
     lineHeight: 23,
   },
-  BuyButtonContainer: {
-    alignItems: "center",
-    paddingBottom: 10,
-  },
   BuyButton: {
+    alignSelf: "center",
     backgroundColor: "black",
     width: "70%",
     padding: 10,
     marginTop: 10,
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "center",
   },
   BuyButtonText: {
     fontSize: 15,
