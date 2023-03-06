@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Alert,
   ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
@@ -75,22 +74,26 @@ export default function CartScreen({ navigation }) {
   const CartProduct = (data, index) => {
     return (
       <View style={styles.ProductsContainer} key={data.id}>
-        <Image
-          source={data.Image}
-          style={{
-            width: 70,
-            height: 70,
-            resizeMode: "contain",
-            marginRight: 10,
-          }}
-        />
+        <View>
+          <Image
+            source={data.Image}
+            style={{
+              width: 100,
+              height: 100,
+              resizeMode: "contain",
+              marginRight: 5,
+            }}
+          />
+        </View>
         <View style={styles.ProductContent}>
-          <Text numberOfLines={1} style={{ fontSize: 16, marginBottom: 5 }}>
+          <Text numberOfLines={2} style={styles.ProductName}>
             {data.name}
           </Text>
-          <Text style={{ fontSize: 15, marginBottom: 5 }}>${data.price}</Text>
+          <Text style={{ fontSize: 15, marginBottom: 10, fontWeight: "600" }}>
+            ${data.price}
+          </Text>
           <TouchableOpacity onPress={() => removeProduct(data.id)}>
-            <EvilIcons name="trash" size={30} color="black" />
+            <EvilIcons name="trash" size={35} color="black" />
           </TouchableOpacity>
         </View>
       </View>
@@ -128,7 +131,7 @@ export default function CartScreen({ navigation }) {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: "#12121212",
+    backgroundColor: "#CDCDCD",
   },
   TopBar: {
     flexDirection: "row",
@@ -146,20 +149,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   ProductsContainer: {
-    alignItems: "center",
+    width: "100%",
     flexDirection: "row",
+    padding: 10,
     backgroundColor: "#fff",
-    padding: 15,
-    marginVertical: 5,
     borderRadius: 10,
-    marginHorizontal: 10,
-    overflow: "hidden",
+    alignItems: "center",
   },
   ProductContent: {
-    flexDirection: "column",
+    width: 290,
+  },
+  ProductName: {
+    marginBottom: 10,
   },
   BuyBottonContainer: {
-    justifyContent: "center",
     alignItems: "center",
   },
   BuyBotton: {
