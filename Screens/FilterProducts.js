@@ -1,33 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
-import { Products } from "../src/Product"; //Products Database
-import { FlashList } from "@shopify/flash-list"; //Flash List Component
-import { FilteredProductCard } from "../src/Components/FilterScreen/FilteredProductCard"; //Filtered Product Card Component
+import React from "react";
+import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import { useSelector, useDispatch } from "react-redux"; //Redux Selector, Dispatch Component
+import { ProductSlice } from "../src/Store/ProductSlice"; //Product Slice Component
 
-export default function FilterProducts({ route, navigation }) {
-  const { CategoryName } = route.params; //Serach the Category of the product from the JSON
+export default function FilterProducts({ navigation }) {
+  const dispatch = useDispatch(); //Dispatch Function
 
-  const [product, setproduct] = useState({}); //Product State
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      getDataFromJson();
-    }); //Get the data from the JSON once
-
-    return unsubscribe;
-  }, [navigation]);
-
-  const getDataFromJson = () => {
-    for (let index = 0; index < Products.length; index++) {
-      if (Products[index].category === CategoryName) {
-        setproduct(Products[index]);
-      }
-    }
-  }; //Search for an specific ID and Category then update the product states
+  const Product = useSelector((state) => state.products.SelectedCategory); //Get all the elements of the Selected Categories state of the Store
 
   return (
     <View style={styles.Container}>
-      <FilteredProductCard Data={product} />
+      <View style={styles.CardContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            //Update the Selected Product State with the Product ID
+            dispatch(ProductSlice.actions.setSelectedProduct(Product.id));
+            navigation.navigate("Product Details");
+          }}
+        >
+          <View style={styles.ImageContainer}>
+            <Image
+              source={Product.Image}
+              style={{
+                width: 300,
+                height: 220,
+                resizeMode: "contain",
+                marginBottom: 30,
+              }}
+            />
+          </View>
+          <Text style={styles.CardCategory}>{Product.category} </Text>
+          <Text numberOfLines={2} style={styles.CardName}>
+            {Product.name}
+          </Text>
+          <Text style={styles.CardPrice}>${Product.price}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

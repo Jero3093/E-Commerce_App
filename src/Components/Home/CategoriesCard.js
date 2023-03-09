@@ -1,19 +1,24 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native"; //Navigation
+import { useDispatch, useSelector } from "react-redux"; //Redux Dispatch Component
+import { ProductSlice } from "../../Store/ProductSlice"; //Product Slice Component
 
 export const CategoriesCard = ({ Data }) => {
   const navigation = useNavigation(); //Navigation Prop
+
+  const dispatch = useDispatch(); //Dispatch Function
 
   return (
     <View style={styles.FilterContainer}>
       <TouchableOpacity
         style={styles.FilterButton}
-        onPress={() =>
-          navigation.navigate("Filter", {
-            CategoryName: Data.name,
-          })
-        }
+        onPress={() => {
+          //Update the state of the Selected Category with the Category Name
+          dispatch(ProductSlice.actions.setSelectedCategory(Data.name));
+
+          navigation.navigate("Filter");
+        }}
       >
         <Text style={styles.FilterText}>{Data.name}</Text>
       </TouchableOpacity>
