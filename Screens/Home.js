@@ -7,19 +7,28 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Products, Categories } from "../src/Product"; //Products JSON
 import { AntDesign, Feather } from "@expo/vector-icons"; //Expo Icons
 import { FlashList } from "@shopify/flash-list"; //Flash List Component
 import { CategoriesCard } from "../src/Components/Home/CategoriesCard"; //Categories Card Component
+import { useSelector, useDispatch } from "react-redux"; //Redux Selector Component
+import { ProductSlice } from "../src/Store/ProductSlice"; //Product Slice Component
 
 export default function HomeScreen({ navigation }) {
+  const dispatch = useDispatch(); //Dispatch Function to change the Global State
+
+  const Products = useSelector((state) => state.products.products); //Get all the elements of the Products state of the Store
+  const Categories = useSelector((state) => state.products.categories); //Get all the elements of the Categories state of the Store
+
   const ListProducts = ({ Products }) => {
     return (
       <View style={styles.CardContainer}>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("Product Details", { ProductId: Products.id })
-          }
+          onPress={() => {
+            //Update the state of the Selected Product
+            dispatch(ProductSlice.actions.setSelectedProduct(Products.id));
+
+            navigation.navigate("Product Details");
+          }}
         >
           <View style={styles.ImageContainer}>
             <Image

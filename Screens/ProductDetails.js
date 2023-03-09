@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   StyleSheet,
   Image,
   ScrollView,
@@ -10,12 +9,14 @@ import {
   Alert,
   useWindowDimensions,
 } from "react-native";
-import { Products } from "../src/Product"; //Products JSON
 import { AntDesign } from "@expo/vector-icons"; //Expo Icons
 import AsyncStorage from "@react-native-async-storage/async-storage"; //Async Storage Component
 import { FlashList } from "@shopify/flash-list";
+import { useSelector } from "react-redux"; //Redux Selector Component
 
-export default function ProductDetatil({ route, navigation }) {
+export default function ProductDetatil({ navigation }) {
+  const product = useSelector((state) => state.products.SelectedProduct); //Function to get selected product from selected products Global State
+
   const { width } = useWindowDimensions(); //Width Dimension of the Device
 
   const addToCart = async (id) => {
@@ -44,27 +45,6 @@ export default function ProductDetatil({ route, navigation }) {
       }
     }
   }; // Data Storage to display in Cart
-
-  const { ProductId } = route.params; //Serach the ID of the product from the JSON
-
-  const [product, setproduct] = useState({}); //Product State
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      getDataFromJson();
-    });
-
-    return unsubscribe;
-  }, [navigation]); //Get the data from the JSON once
-
-  const getDataFromJson = async () => {
-    for (let index = 0; index < Products.length; index++) {
-      if (Products[index].id === ProductId) {
-        setproduct(Products[index]);
-        return;
-      }
-    }
-  }; //Search for an specific ID then update the product states
 
   const [count, setcount] = useState(1); //Product Counter State
 
