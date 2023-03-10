@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 20,
     marginHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#A0A0A0",
   },
   ImageContainer: {
     alignItems: "center",

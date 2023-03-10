@@ -49,8 +49,6 @@ export default function ProductDetatil({ navigation }) {
   const [count, setcount] = useState(1); //Product Counter State
 
   const RenderProduct = () => {
-    const [price, setprice] = useState(product.price * count); //Product Price State
-
     return (
       <View>
         {/* Carrousel of Images*/}
@@ -76,18 +74,7 @@ export default function ProductDetatil({ navigation }) {
         <View style={styles.ProductContent}>
           <Text style={styles.CardCategory}>{product.category}</Text>
           <Text style={styles.ProductName}>{product.name}</Text>
-          <View style={styles.ProductPriceContainer}>
-            <Text style={styles.ProductPrice}>${price} </Text>
-            <TouchableOpacity onPress={() => setcount(count + 1)}>
-              <AntDesign name="pluscircleo" size={23} color="black" />
-            </TouchableOpacity>
-            <Text style={{ fontSize: 17, marginLeft: 10, marginRight: 10 }}>
-              {count}
-            </Text>
-            <TouchableOpacity onPress={() => setcount(count - 1)}>
-              <AntDesign name="minuscircleo" size={23} color="black" />
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.ProductPrice}>$ {product.price} </Text>
           <Text style={styles.ProductDescription}>{product.description}</Text>
         </View>
       </View>
@@ -127,8 +114,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     backgroundColor: "#12121212",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     height: "100%",
   },
   CardCategory: {
@@ -146,13 +133,12 @@ const styles = StyleSheet.create({
   ProductPrice: {
     fontSize: 18,
     fontWeight: "600",
-    marginVertical: 10,
+    marginVertical: 25,
     marginRight: 10,
   },
   ProductDescription: {
     fontSize: 15,
-    marginTop: 30,
-    lineHeight: 23,
+    lineHeight: 30,
   },
   BuyButton: {
     alignSelf: "center",
