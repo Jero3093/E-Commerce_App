@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -9,49 +9,26 @@ import {
   Alert,
   useWindowDimensions,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons"; //Expo Icons
-import AsyncStorage from "@react-native-async-storage/async-storage"; //Async Storage Component
-import { FlashList } from "@shopify/flash-list";
-import { useSelector } from "react-redux"; //Redux Selector Component
+import { FlashList } from "@shopify/flash-list"; //Flash List Component
+import { useSelector, useDispatch } from "react-redux"; //Redux Selector Component
+import { CartSlice } from "../src/Store/CartSlice"; //CartSlice
 
-export default function ProductDetatil({ navigation }) {
+export default function ProductDetatil() {
   const product = useSelector((state) => state.products.SelectedProduct); //Function to get selected product from selected products Global State
+
+  const dispatch = useDispatch(); //Dispatch Function
 
   const { width } = useWindowDimensions(); //Width Dimension of the Device
 
-  const addToCart = async (id) => {
-    let ItemArray = await AsyncStorage.getItem("cartItem");
-    ItemArray = JSON.parse(ItemArray);
-    if (ItemArray) {
-      let array = ItemArray;
-      array.push(id);
-
-      try {
-        await AsyncStorage.setItem("cartItem", JSON.stringify(array));
-        Alert.alert("Success", "Product added to Cart");
-        navigation.navigate("Home");
-      } catch (error) {
-        return error;
-      }
-    } else {
-      let array = [];
-      array.push(id);
-      try {
-        await AsyncStorage.setItem("cartItem", JSON.stringify(array));
-        Alert.alert("Success", "Product added to Cart");
-        navigation.navigate("Home");
-      } catch (error) {
-        return error;
-      }
-    }
-  }; // Data Storage to display in Cart
-
-  const [count, setcount] = useState(1); //Product Counter State
+  const AddToCart = () => {
+    dispatch(CartSlice.actions.addToCart({ product })); //Function to send the specific data of the product from the selector to the CartSlice
+    Alert.alert("Check", "The product it in the cart");
+  };
 
   const RenderProduct = () => {
     return (
       <View>
-        {/* Carrousel of Images*/}
+        {/* Carrousel of Images */}
         <FlashList
           data={product.ImageCarrousel}
           showsHorizontalScrollIndicator={false}
@@ -72,9 +49,13 @@ export default function ProductDetatil({ navigation }) {
         />
         {/* Product Content */}
         <View style={styles.ProductContent}>
+          {/* Category */}
           <Text style={styles.CardCategory}>{product.category}</Text>
+          {/* Name */}
           <Text style={styles.ProductName}>{product.name}</Text>
+          {/* Price */}
           <Text style={styles.ProductPrice}>$ {product.price} </Text>
+          {/* Description */}
           <Text style={styles.ProductDescription}>{product.description}</Text>
         </View>
       </View>
@@ -87,12 +68,7 @@ export default function ProductDetatil({ navigation }) {
         <RenderProduct />
       </ScrollView>
       <View style={{ backgroundColor: "#12121212", paddingBottom: 30 }}>
-        <TouchableOpacity
-          style={styles.BuyButton}
-          onPress={() => {
-            addToCart(product.id);
-          }}
-        >
+        <TouchableOpacity style={styles.BuyButton} onPress={AddToCart}>
           <Text style={styles.BuyButtonText}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
