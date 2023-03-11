@@ -10,9 +10,12 @@ import {
 import { useNavigation } from "@react-navigation/native"; //Navigation
 import { Ionicons } from "@expo/vector-icons"; //Expo Icons
 import { SearchList } from "../src/Components/SearchScreen/SearchList"; //Search List Component
+import { useSelector } from "react-redux"; //Redux Selector Component
 
 export default function SearchScreen() {
   const navigation = useNavigation(); //Navigation Prop
+
+  const Products = useSelector((state) => state.products.products); //Get all the elements of the Products state of the Store
 
   const [SearchText, setSearchText] = useState("");
 
@@ -36,7 +39,7 @@ export default function SearchScreen() {
         />
       </View>
       {/* Search Products List */}
-      <SearchList TextValue={SearchText} />
+      <SearchList TextValue={SearchText} Data={Products} />
     </SafeAreaView>
   );
 }

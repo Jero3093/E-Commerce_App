@@ -7,15 +7,18 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { Products } from "../../Product"; //Products Database
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux"; //Redux Dispatch Component
+import { ProductSlice } from "../../Store/ProductSlice"; //Product Slice Component
 
-export const SearchList = ({ TextValue }) => {
-  const navigation = useNavigation();
+export const SearchList = ({ Data, TextValue }) => {
+  const Dispatch = useDispatch(); //Redux Dispatch Function
+
+  const navigation = useNavigation(); //Navigation Prop
 
   return (
     <FlatList
-      data={Products}
+      data={Data}
       renderItem={({ item }) => {
         {
           /*If the Input text is a empty String return noting*/
@@ -30,11 +33,12 @@ export const SearchList = ({ TextValue }) => {
           return (
             <View style={styles.CardContainer}>
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("Product Details", {
-                    ProductId: item.id,
-                  })
-                }
+                onPress={() => {
+                  //Update the state of the Selected Product with the Product ID
+                  Dispatch(ProductSlice.actions.setSelectedProduct(item.id));
+
+                  navigation.navigate("Product Details");
+                }}
               >
                 <View style={styles.ImageContainer}>
                   <Image
