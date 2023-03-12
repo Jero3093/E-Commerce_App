@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { AntDesign, Feather } from "@expo/vector-icons"; //Expo Icons
 import { useNavigation } from "@react-navigation/native"; //Navigation
 
-export const Header = () => {
+export const Header = ({ NumberItems }) => {
   const navigation = useNavigation(); //Navigation Prop
 
   return (
@@ -11,7 +11,7 @@ export const Header = () => {
       <Text style={styles.TopText}>Alter</Text>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
-          style={styles.CartButton}
+          style={styles.SearchButton}
           onPress={() => navigation.navigate("Search")}
         >
           <Feather name="search" size={32} color="black" />
@@ -21,6 +21,7 @@ export const Header = () => {
           style={styles.CartButton}
         >
           <AntDesign name="shoppingcart" size={32} color="black" />
+          <Text style={styles.CartNumber}>{NumberItems} </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -29,7 +30,6 @@ export const Header = () => {
 
 const styles = StyleSheet.create({
   Header: {
-    backgroundColor: "",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -41,7 +41,14 @@ const styles = StyleSheet.create({
     padding: 15,
     letterSpacing: 1,
   },
-  CartButton: {
+  SearchButton: {
     marginRight: 20,
   },
+  CartButton: {
+    marginRight: 20,
+    flexDirection: "row",
+  },
+  CartNumber: {
+    fontWeight: "bold",
+  }
 });

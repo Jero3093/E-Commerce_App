@@ -1,23 +1,21 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 import { FlashList } from "@shopify/flash-list"; //Flash List Component
 import { useSelector } from "react-redux"; //Redux Selector Component
 import { CategoriesCard } from "../src/Components/Home/CategoriesCard"; //Categories Card Component
 import { ProductsCard } from "../src/Components/Home/ProductsCard"; //Products Card Component
-import { Header } from "../src/Components/Home/Header";//Header Component
+import { Header } from "../src/Components/Home/Header"; //Header Component
+import { NumberofItems } from "../src/Store/CartSlice";
 
 export default function HomeScreen({ navigation }) {
   const Products = useSelector((state) => state.products.products); //Get all the elements of the Products state of the Store
   const Categories = useSelector((state) => state.products.categories); //Get all the elements of the Categories state of the Store
+  const CartItems = useSelector(NumberofItems); //Get the number of the items that are in the Cart
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <Header />
+      <Header NumberItems={CartItems} />
       <View style={{ marginBottom: 20 }}>
         <FlashList
           data={Categories}
