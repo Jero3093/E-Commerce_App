@@ -1,129 +1,66 @@
+import React from "react";
 import {
   View,
   SafeAreaView,
   StyleSheet,
   Text,
-  Image,
   TouchableOpacity,
-  ScrollView,
+  FlatList,
 } from "react-native";
-import React, { useState, useEffect } from "react";
-import { Products } from "../src/Product"; //Products JSON
-import { EvilIcons } from "@expo/vector-icons"; //Expo Icons
-import AsyncStorage from "@react-native-async-storage/async-storage"; //Async Storage Component
 import { Ionicons } from "@expo/vector-icons"; //Expo Icons
+import { useSelector } from "react-redux"; //Redux Selector - Dispatch Component
+import { CartItemsCard } from "../src/Components/Cart/CartItemsCard"; //Cart Items Card Component
+import { GetTotal } from "../src/Store/CartSlice"; //Total Pirce Function from CartSlice Component
 
 export default function CartScreen({ navigation }) {
-  const [product, setproduct] = useState(); //Product State
+  const cartItems = useSelector((state) => state.CartItems.items); //Function to bring the Items from the Global State
 
-  const [total, settotal] = useState(null); // Total Price State
+  const Total = useSelector(GetTotal); //Get the Total Price with the Function in the Cart Slice
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      getDataFromJson();
-    });
-
-    return unsubscribe;
-  }, [navigation]); //Get the data from the JSON once
-
-  const getDataFromJson = async () => {
-    let Items = await AsyncStorage.getItem("cartItem");
-    Items = JSON.parse(Items);
-    let ProductData = [];
-    if (Items) {
-      Products.forEach((data) => {
-        if (Items.includes(data.id)) {
-          ProductData.push(data);
-          return;
-        }
-      });
-      setproduct(ProductData);
-      getTotal(ProductData);
+  const PaymentButton = () => {
+    if (cartItems.length <= 0) {
+      return;
     } else {
-      setproduct(false);
-      getTotal(false);
-    }
-  }; // Get the data stoterd whith Async Storage
-
-  const getTotal = (ProductData) => {
-    let total = 0;
-    for (let index = 0; index < ProductData.length; index++) {
-      let price = ProductData[index].price;
-      total = total + price;
-    }
-
-    settotal(total);
-  }; //Get the total price to pay
-
-  const removeProduct = async (id) => {
-    let ItemArray = await AsyncStorage.getItem("cartItem");
-    ItemArray = JSON.parse(ItemArray);
-    if (ItemArray) {
-      let array = ItemArray;
-      for (let index = 0; index < array.length; index++) {
-        if (array[index] == id) {
-          array.splice(index, 1);
-        }
-
-        await AsyncStorage.setItem("cartItem", JSON.stringify(array));
-        getDataFromJson();
-      }
-    }
-  }; //Remove the Products from the Cart
-
-  const CartProduct = (data, index) => {
-    return (
-      <View style={styles.ProductsContainer} key={data.id}>
-        <View>
-          <Image
-            source={data.Image}
-            style={{
-              width: 100,
-              height: 100,
-              resizeMode: "contain",
-              marginRight: 5,
-            }}
-          />
-        </View>
-        <View style={styles.ProductContent}>
-          <Text numberOfLines={2} style={styles.ProductName}>
-            {data.name}
-          </Text>
-          <Text style={{ fontSize: 15, marginBottom: 10, fontWeight: "600" }}>
-            ${data.price}
-          </Text>
-          <TouchableOpacity onPress={() => removeProduct(data.id)}>
-            <EvilIcons name="trash" size={35} color="black" />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }; //Cart Product Container
-
-  return (
-    <SafeAreaView style={styles.Container}>
-      <View style={styles.TopBar}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Ionicons name="md-chevron-back-outline" size={33} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.TopBarTitle}>Cart</Text>
-        <View style={{ flexDirection: "column", alignItems: "center" }}>
-          <Text style={styles.TopBarTotal}>Total:</Text>
-          <Text style={styles.TopBarTotal}>${total}</Text>
-        </View>
-      </View>
-      <ScrollView>
-        {/* Function to Render the items from Async Storage */}
-        <View>{product ? product.map(CartProduct) : null}</View>
-      </ScrollView>
-      <View style={styles.BuyBottonContainer}>
+      return (
         <TouchableOpacity
           style={styles.BuyBotton}
           onPress={() => navigation.navigate("Cart Modal")}
         >
           <Text style={styles.BottonText}>Finish Payment</Text>
         </TouchableOpacity>
+      );
+    }
+  }; //If the lenght of the array of Items Global is lower or equal to 0 it will just return, but if the lenght of the array is higher than 0 it will display the Button to Finish the Payment
+
+  return (
+    <SafeAreaView style={styles.Container}>
+      {/* Header */}
+      <View style={styles.Header}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Ionicons name="md-chevron-back-outline" size={33} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.HeaderTitle}>Cart</Text>
       </View>
+      {/* List of Cart Items */}
+      <FlatList
+        data={cartItems}
+        renderItem={({ item }) => <CartItemsCard Data={item} />}
+        ListFooterComponent={() => {
+          return (
+            <View
+              style={{
+                borderTopWidth: StyleSheet.hairlineWidth,
+                borderColor: "#303030",
+                marginHorizontal: 10,
+              }}
+            >
+              <Text style={styles.Footer}>Total: ${Total} </Text>
+            </View>
+          );
+        }}
+      />
+      {/* Payment Button */}
+      <PaymentButton />
     </SafeAreaView>
   );
 } //Screen Container
@@ -133,37 +70,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#CDCDCD",
   },
-  TopBar: {
+  Header: {
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
     paddingTop: 19,
-    justifyContent: "space-between",
     marginBottom: 10,
   },
-  TopBarTitle: {
+  HeaderTitle: {
     fontSize: 19,
     fontWeight: "600",
   },
-  TopBarTotal: {
+  Footer: {
     fontSize: 18,
-  },
-  ProductsContainer: {
-    width: "100%",
-    flexDirection: "row",
-    padding: 10,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  ProductContent: {
-    width: 290,
-  },
-  ProductName: {
-    marginBottom: 10,
-  },
-  BuyBottonContainer: {
-    alignItems: "center",
+    marginVertical: 20,
+    alignSelf: "flex-end",
   },
   BuyBotton: {
     alignItems: "center",
@@ -171,6 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#121212",
     padding: 10,
     borderRadius: 50,
+    alignSelf: "center",
   },
   BottonText: {
     color: "#fff",
