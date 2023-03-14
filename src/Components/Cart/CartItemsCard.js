@@ -2,8 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons"; //Expo Icons
 import { CartSlice } from "../../Store/CartSlice"; //Cart Slice Component
-import { useDispatch, useSelector } from "react-redux"; //Redux Selector - Dispatch Component
-import { ItemsPrice } from "../../Store/CartSlice"; //Items Price Function
+import { useDispatch } from "react-redux"; //Redux Selector - Dispatch Component
 
 export const CartItemsCard = ({ Data }) => {
   const Dispatch = useDispatch(); //Redux Dispatch Function
@@ -60,7 +59,7 @@ export const CartItemsCard = ({ Data }) => {
               fontWeight: "600",
             }}
           >
-            $ {ProductPrice}
+            $ {Data.price}
           </Text>
         </View>
       </View>
